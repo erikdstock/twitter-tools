@@ -55,7 +55,7 @@ def too_new?(tweet)
 end
 
 def print_tweet(tweet)
-  "#{tweet.created_at.strftime('%Y-%m-%d')} | #{tweet.text}"
+  "#{tweet.created_at.strftime('%Y-%m-%d')} | #{tweet.text} \n #{tweet.retweet_count}RT, #{tweet.favorite_count}<3"
 end
 
 def too_new_or_popular?(tweet)
@@ -142,6 +142,7 @@ end
 
 puts "==> Deleting #{tweets_to_delete.size} tweets"
 tweets_to_delete.each_slice(MAX_TWEETS_PER_REQUEST) do |tweets|
+  tweets.each { |tweet| puts "==> Deleting: #{print_tweet(tweet)}" }
   begin
     api_call :destroy_status, tweets
   rescue Twitter::Error::NotFound
