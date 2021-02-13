@@ -1,0 +1,6 @@
+.ruby-version
+.bundle
+.env
+bin/
+unfollowed_usernames.txt
+unfollowed_full_names.txt
