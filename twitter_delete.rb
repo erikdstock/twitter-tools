@@ -54,6 +54,10 @@ def too_new?(tweet)
   tweet.created_at > @oldest_tweet_time_to_keep || tweet.created_at < @newest_tweet_time_to_keep
 end
 
+def print_tweet(tweet)
+  "#{tweet.created_at.strftime('%Y-%m-%d')} | #{tweet.text}"
+end
+
 def too_new_or_popular?(tweet)
   return true if too_new? tweet
 
@@ -61,12 +65,12 @@ def too_new_or_popular?(tweet)
   return false if tweet.text.start_with? 'RT @'
 
   if tweet.retweet_count >= @options[:rts]
-    puts "Ignoring tweet: too RTd: #{tweet.text}"
+    puts "Ignoring tweet: too RTd: #{print_tweet(tweet)}"
     return true
   end
 
   if tweet.favorite_count >= @options[:favs]
-    puts "Ignoring tweet: too liked: #{tweet.text}"
+    puts "Ignoring tweet: too liked: #{print_tweet(tweet)}"
     return true
   end
 
